@@ -1,1 +1,121 @@
-/* No CSS */
+body {
+  margin: 0;
+  font-family: "Lato", sans-serif;
+  max-width: 100vw;
+}
+
+header {
+  height: 15vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  height: 10vh;
+}
+
+.search {
+  height: 30vh;
+  width: 90%;
+  margin: 2vh auto;
+}
+
+.search__bar {
+  height: 6vh;
+  position: relative;
+}
+
+.search__bar__input {
+  width: 100%;
+  height: 100%;
+  padding-left: 1rem;
+  background-color: #e7e7e7;
+  border: none;
+  border-radius: 5px;
+}
+
+.search__bar .material-icons {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -45%);
+  right: 0.5rem;
+  font-size: 2rem;
+}
+
+.search__tags {
+  margin-top: 2vh;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  margin: 1rem 1rem 0 0;
+}
+
+.tag {
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: baseline;
+}
+
+.tag .material-icons {
+  font-size: 1rem;
+  transform: rotate(45deg);
+  margin-left: 0.5rem;
+}
+
+.tag__blue {
+  background-color: #3282f7;
+}
+
+.dropdowns {
+  display: flex;
+}
+
+.btn {
+  min-width: 8rem;
+  min-height: 3.5rem;
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn__blue {
+  background-color: #3282f7;
+}
+
+.btn__green {
+  background-color: #68d9a4;
+}
+
+.btn__orange {
+  background-color: #ed6454;
+}
+
+.recipes {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: auto;
+  width: 90%;
+}
+
+.card {
+  width: 29%;
+  height: 40vh;
+  margin: 1.5%;
+}
+
+.card__img {
+  height: 45%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.card__text {
+  height: 55%;
+}

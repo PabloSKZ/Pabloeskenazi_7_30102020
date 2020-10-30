@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
+      href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
+      rel="stylesheet"
+    />
+    <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
@@ -12,13 +16,14 @@
   </head>
   <body>
     <header>
-      <img src="assets/logo.png" alt="Les petits plats" />
+      <img src="assets/logo.png" alt="Les petits plats" class="logo" />
     </header>
     <section class="search">
       <div class="search__bar">
         <input
           type="search"
           name="search-bar-input"
+          placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette"
           id="search-bar-input"
           class="search__bar__input"
         />
@@ -26,18 +31,29 @@
       </div>
       <div class="search__tags">
         <div class="selected-tags" id="selected-tags">
-          <button class="tag tag-blue">
+          <button class="tag tag__blue">
             Coco <span class="material-icons"> control_point </span>
           </button>
         </div>
-        <button class="btn btn-blue" id="ingredients">Ingrédients</button>
-        <button class="btn btn-green" id="appliance">Appareil</button>
-        <button class="btn btn-orange" id="ustencils">Ustensiles</button>
+        <div class="dropdowns">
+          <button class="btn btn__blue" id="ingredients">
+            Ingrédients
+            <span class="material-icons"> expand_more </span>
+          </button>
+          <button class="btn btn__green" id="appliance">
+            Appareil
+            <span class="material-icons"> expand_more </span>
+          </button>
+          <button class="btn btn__orange" id="ustencils">
+            Ustensiles
+            <span class="material-icons"> expand_more </span>
+          </button>
+        </div>
       </div>
     </section>
     <section class="recipes" id="recipes">
       <div class="card">
-        <img src="" alt="" class="card__img" />
+        <img src="assets/card_img.jpg" alt="Image Test" class="card__img" />
         <div class="card__text">
           <h2 class="card__text__title">Limonade de Coco</h2>
           <p class="card__text__time">
@@ -59,7 +75,7 @@
         </div>
       </div>
       <div class="card">
-        <img src="" alt="" class="card__img" />
+        <img src="assets/card_img.jpg" alt="Image Test" class="card__img" />
         <div class="card__text">
           <h2 class="card__text__title">Limonade de Coco</h2>
           <p class="card__text__time">
@@ -81,7 +97,7 @@
         </div>
       </div>
       <div class="card">
-        <img src="" alt="" class="card__img" />
+        <img src="assets/card_img.jpg" alt="Image Test" class="card__img" />
         <div class="card__text">
           <h2 class="card__text__title">Limonade de Coco</h2>
           <p class="card__text__time">
@@ -103,7 +119,7 @@
         </div>
       </div>
       <div class="card">
-        <img src="" alt="" class="card__img" />
+        <img src="assets/card_img.jpg" alt="Image Test" class="card__img" />
         <div class="card__text">
           <h2 class="card__text__title">Limonade de Coco</h2>
           <p class="card__text__time">
@@ -125,7 +141,7 @@
         </div>
       </div>
       <div class="card">
-        <img src="" alt="" class="card__img" />
+        <img src="assets/card_img.jpg" alt="Image Test" class="card__img" />
         <div class="card__text">
           <h2 class="card__text__title">Limonade de Coco</h2>
           <p class="card__text__time">
@@ -147,7 +163,7 @@
         </div>
       </div>
       <div class="card">
-        <img src="" alt="" class="card__img" />
+        <img src="assets/card_img.jpg" alt="Image Test" class="card__img" />
         <div class="card__text">
           <h2 class="card__text__title">Limonade de Coco</h2>
           <p class="card__text__time">
