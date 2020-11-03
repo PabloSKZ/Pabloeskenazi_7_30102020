@@ -15,6 +15,14 @@ function renderCards(recipes) {
         ingredients += `<li><span class="bold">${recipes[i].ingredients[j].ingredient}:</span> ${recipes[i].ingredients[j].quantity} ${recipes[i].ingredients[j].unit}</li>`;
       }
     }
+
+    let description = "";
+    if (recipes[i].description.length > 160) {
+      description = recipes[i].description.slice(0, 160) + "...";
+    } else {
+      description = recipes[i].description;
+    }
+
     $recipes.innerHTML += `
       <div class="card">
       <img src="assets/card_img.jpg" alt="${recipes[i].name}" class="card__img" />
@@ -31,7 +39,7 @@ function renderCards(recipes) {
             ${ingredients}
           </ul>
           <p class="card_text__description">
-          ${recipes[i].description}
+          ${description}
           </p>
         </div>
       </div>
