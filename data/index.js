@@ -1,5 +1,5 @@
 function renderCards(recipes) {
-  console.log(recipes);
+  /* console.log(recipes); */
   $recipes.innerHTML = "";
   for (let i in recipes) {
     let ingredients = "";
@@ -47,7 +47,21 @@ function renderCards(recipes) {
   }
 }
 
+function filterRecipes(recipes, filter) {
+  let filtredRecipes = [];
+  return filtredRecipes;
+}
+
 /* DOM Variables */
 const $recipes = document.getElementById("recipes");
+
+const inputSearch = "poisson";
+const search = new RegExp(inputSearch, "i");
+
+for (let i in recipes) {
+  if (recipes[i].name.match(search)) {
+    recipes[i].name.match(search).index;
+  }
+}
 
 renderCards(recipes);
