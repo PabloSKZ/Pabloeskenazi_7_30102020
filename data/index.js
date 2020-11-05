@@ -1,5 +1,4 @@
 function renderCards(recipes) {
-  /* console.log(recipes); */
   $recipes.innerHTML = "";
   for (let i in recipes) {
     let ingredients = "";
@@ -47,19 +46,17 @@ function renderCards(recipes) {
   }
 }
 
-function showCards(recipes) {}
-
 function filterRecipes(recipes, search) {
-  let filtredRecipes = [];
+  let filteredRecipes = [];
   for (let i in recipes) {
     // Search by name
     if (recipes[i].name.match(search)) {
-      filtredRecipes.push(
+      filteredRecipes.push(
         recipes.find((x) => x.name === recipes[i].name.match(search).input)
       );
       // Search by description
     } else if (recipes[i].description.match(search)) {
-      filtredRecipes.push(
+      filteredRecipes.push(
         recipes.find(
           (x) => x.description === recipes[i].description.match(search).input
         )
@@ -68,8 +65,7 @@ function filterRecipes(recipes, search) {
     } else {
       for (let j in recipes[i].ingredients) {
         if (recipes[i].ingredients[j].ingredient.match(search)) {
-          console.log(recipes[i].ingredients[j].ingredient);
-          filtredRecipes.push(
+          filteredRecipes.push(
             recipes.find((x) => {
               if (typeof x.ingredients[j] != "undefined") {
                 return (
@@ -83,7 +79,26 @@ function filterRecipes(recipes, search) {
       }
     }
   }
-  return filtredRecipes;
+  return filteredRecipes;
+}
+
+function showCards(recipes, filteredRecipes) {
+  // Hide all cards
+  for (let i = 1; i <= recipes.length; i++) {
+    document.getElementById(i).classList.add("hide");
+  }
+  // Show filtred cards
+  if (filteredRecipes[0] !== undefined && filteredRecipes[0] !== 0) {
+    for (let j in filteredRecipes) {
+      document.getElementById(filteredRecipes[j].id).classList.remove("hide");
+    }
+  } else if (filteredRecipes[0] == 0) {
+    for (let i = 1; i <= recipes.length; i++) {
+      document.getElementById(i).classList.remove("hide");
+    }
+  } else {
+    console.log("vide");
+  }
 }
 
 /* DOM Variables */
@@ -95,10 +110,13 @@ $searchInput.addEventListener("input", (e) => {
   if ($searchInput.value.length > 2) {
     let inputSearch = $searchInput.value;
     const search = new RegExp(inputSearch, "i");
-    filtredRecipes = filterRecipes(recipes, search);
-    renderCards(filtredRecipes);
+    filteredRecipes = filterRecipes(recipes, search);
+    showCards(recipes, filteredRecipes);
+  } else if ($searchInput.value.length == 0) {
+    filteredRecipes = [0];
+    showCards(recipes, filteredRecipes);
   }
 });
 
-let filtredRecipes = recipes;
-renderCards(filtredRecipes);
+let filteredRecipes = recipes;
+renderCards(filteredRecipes);
