@@ -13,24 +13,28 @@ ul {
   font-weight: bold;
 }
 
+.hide {
+  display: none;
+}
+
 header {
-  height: 15vh;
+  height: 10rem;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .logo {
-  height: 10vh;
+  height: 6rem;
 }
 
 .search {
-  height: 20vh;
+  height: 12rem;
   width: 90%;
-  margin: 2vh auto;
+  margin: 1rem auto;
 
   &__bar {
-    height: 6vh;
+    height: 4rem;
     position: relative;
 
     &__input {
@@ -52,7 +56,7 @@ header {
   }
 
   &__tags {
-    margin-top: 2vh;
+    margin-top: 1rem;
   }
 }
 
@@ -116,7 +120,7 @@ button {
 
 .card {
   width: 31%;
-  height: 55vh;
+  height: 30rem;
   margin: 1%;
   background-color: #e7e7e7;
   border-radius: 5px;

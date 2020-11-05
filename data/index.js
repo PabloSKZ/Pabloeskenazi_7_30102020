@@ -24,7 +24,7 @@ function renderCards(recipes) {
     }
 
     $recipes.innerHTML += `
-      <div class="card">
+      <div class="card" id="${recipes[i].id}">
       <img src="assets/card_img.jpg" alt="${recipes[i].name}" class="card__img" />
       <div class="card__text">
         <div class="card__text__top">
@@ -47,21 +47,58 @@ function renderCards(recipes) {
   }
 }
 
-function filterRecipes(recipes, filter) {
+function showCards(recipes) {}
+
+function filterRecipes(recipes, search) {
   let filtredRecipes = [];
+  for (let i in recipes) {
+    // Search by name
+    if (recipes[i].name.match(search)) {
+      filtredRecipes.push(
+        recipes.find((x) => x.name === recipes[i].name.match(search).input)
+      );
+      // Search by description
+    } else if (recipes[i].description.match(search)) {
+      filtredRecipes.push(
+        recipes.find(
+          (x) => x.description === recipes[i].description.match(search).input
+        )
+      );
+      // Search by ingredients
+    } else {
+      for (let j in recipes[i].ingredients) {
+        if (recipes[i].ingredients[j].ingredient.match(search)) {
+          console.log(recipes[i].ingredients[j].ingredient);
+          filtredRecipes.push(
+            recipes.find((x) => {
+              if (typeof x.ingredients[j] != "undefined") {
+                return (
+                  x.ingredients[j].ingredient ===
+                  recipes[i].ingredients[j].ingredient.match(search).input
+                );
+              }
+            })
+          );
+        }
+      }
+    }
+  }
   return filtredRecipes;
 }
 
 /* DOM Variables */
 const $recipes = document.getElementById("recipes");
+const $searchInput = document.getElementById("search-bar-input");
 
-const inputSearch = "poisson";
-const search = new RegExp(inputSearch, "i");
-
-for (let i in recipes) {
-  if (recipes[i].name.match(search)) {
-    recipes[i].name.match(search).index;
+$searchInput.addEventListener("input", (e) => {
+  e.preventDefault();
+  if ($searchInput.value.length > 2) {
+    let inputSearch = $searchInput.value;
+    const search = new RegExp(inputSearch, "i");
+    filtredRecipes = filterRecipes(recipes, search);
+    renderCards(filtredRecipes);
   }
-}
+});
 
-renderCards(recipes);
+let filtredRecipes = recipes;
+renderCards(filtredRecipes);
