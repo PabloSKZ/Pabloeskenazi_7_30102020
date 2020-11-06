@@ -108,9 +108,24 @@ const $searchInput = document.getElementById("search-bar-input");
 $searchInput.addEventListener("input", (e) => {
   e.preventDefault();
   if ($searchInput.value.length > 2) {
-    let inputSearch = $searchInput.value;
-    const search = new RegExp(inputSearch, "i");
-    filteredRecipes = filterRecipes(recipes, search);
+    let eachFilteredRecipes = [];
+    filteredRecipes = [];
+    const searchInput = $searchInput.value.split(" ");
+    for (let i in searchInput) {
+      const search = new RegExp(searchInput[i], "i");
+      eachFilteredRecipes.push(filterRecipes(recipes, search));
+    }
+    filteredRecipes = [].concat.apply([], eachFilteredRecipes);
+    filteredRecipes = filteredRecipes
+      .filter(
+        // find common occurences
+        (i) =>
+          filteredRecipes.filter((j) => i === j).length >= searchInput.length
+      )
+      .filter((item, pos) => {
+        // delete duplicate
+        return filteredRecipes.indexOf(item) == pos;
+      });
     showCards(recipes, filteredRecipes);
   } else if ($searchInput.value.length == 0) {
     filteredRecipes = [0];
