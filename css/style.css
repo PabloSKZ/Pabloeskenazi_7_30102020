@@ -90,7 +90,7 @@ button {
 
 .btn {
   min-width: 8rem;
-  min-height: 3.5rem;
+  height: 3.5rem;
   padding: 0.5rem 1rem;
   display: flex;
   justify-content: space-between;
@@ -107,6 +107,144 @@ button {
 
 .btn__orange {
   background-color: #ed6454;
+}
+
+.ingredient-list {
+  background-color: #3282f7;
+  width: 35rem;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  margin: 1rem 1rem 0 0;
+  padding: 1rem 1rem 0.5rem 1rem;
+  z-index: 99;
+}
+
+.ingredient-list input {
+  width: 90%;
+  height: 2rem;
+  background-color: inherit;
+  border: none;
+}
+
+.ingredient-list input::placeholder {
+  color: white;
+  opacity: 0.8;
+}
+
+.ingredient-list__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ingredient-list ul {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 15rem;
+  margin: 1.5rem 0 0 0;
+}
+
+.ingredient-list li {
+  margin: 0.2rem;
+}
+
+.ingredient-list a {
+  text-decoration: none;
+  color: white;
+}
+
+.appliance-list {
+  background-color: #68d9a4;
+  width: 35rem;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  margin: 1rem 1rem 0 0;
+  padding: 1rem 1rem 0.5rem 1rem;
+  z-index: 99;
+}
+
+.appliance-list input {
+  width: 90%;
+  height: 2rem;
+  background-color: inherit;
+  border: none;
+}
+
+.appliance-list input::placeholder {
+  color: white;
+  opacity: 0.8;
+}
+
+.appliance-list__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.appliance-list ul {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 15rem;
+  margin: 1.5rem 0 0 0;
+}
+
+.appliance-list li {
+  margin: 0.2rem;
+}
+
+.appliance-list a {
+  text-decoration: none;
+  color: white;
+}
+
+.ustencils-list {
+  background-color: #ed6454;
+  width: 35rem;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  margin: 1rem 1rem 0 0;
+  padding: 1rem 1rem 0.5rem 1rem;
+  z-index: 99;
+}
+
+.ustencils-list input {
+  width: 90%;
+  height: 2rem;
+  background-color: inherit;
+  border: none;
+}
+
+.ustencils-list input::placeholder {
+  color: white;
+  opacity: 0.8;
+}
+
+.ustencils-list__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ustencils-list ul {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 15rem;
+  margin: 1.5rem 0 0 0;
+}
+
+.ustencils-list li {
+  margin: 0.2rem;
+}
+
+.ustencils-list a {
+  text-decoration: none;
+  color: white;
 }
 
 .recipes {

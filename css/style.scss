@@ -90,7 +90,7 @@ button {
 
 .btn {
   min-width: 8rem;
-  min-height: 3.5rem;
+  height: 3.5rem;
   padding: 0.5rem 1rem;
   display: flex;
   justify-content: space-between;
@@ -107,6 +107,66 @@ button {
   &__orange {
     background-color: #ed6454;
   }
+}
+
+@mixin list {
+  width: 35rem;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  margin: 1rem 1rem 0 0;
+  padding: 1rem 1rem 0.5rem 1rem;
+  z-index: 99;
+
+  input {
+    width: 90%;
+    height: 2rem;
+    background-color: inherit;
+    border: none;
+
+    &::placeholder {
+      color: white;
+      opacity: 0.8;
+    }
+  }
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 15rem;
+    margin: 1.5rem 0 0 0;
+  }
+
+  li {
+    margin: 0.2rem;
+  }
+
+  a {
+    text-decoration: none;
+    color: white;
+  }
+}
+
+.ingredient-list {
+  background-color: #3282f7;
+  @include list;
+}
+
+.appliance-list {
+  background-color: #68d9a4;
+  @include list;
+}
+
+.ustencils-list {
+  background-color: #ed6454;
+  @include list;
 }
 
 .recipes {
