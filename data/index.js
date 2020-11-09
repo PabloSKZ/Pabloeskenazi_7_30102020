@@ -101,6 +101,40 @@ function showCards(recipes, filteredRecipes) {
   }
 }
 
+function getAllIngredients(recipes) {
+  let allIngredients = [];
+  recipes.map((x) => {
+    x.ingredients.map((y) => {
+      if (!allIngredients.includes(y.ingredient)) {
+        return allIngredients.push(y.ingredient);
+      }
+    });
+  });
+  return allIngredients;
+}
+
+function getAllAppliances(recipes) {
+  let allAppliances = [];
+  recipes.map((x) => {
+    if (!allAppliances.includes(x.appliance)) {
+      return allAppliances.push(x.appliance);
+    }
+  });
+  return allAppliances;
+}
+
+function getAllUstensils(recipes) {
+  let allUstensils = [];
+  recipes.map((x) => {
+    x.ustensils.map((y) => {
+      if (!allUstensils.includes(y)) {
+        return allUstensils.push(y);
+      }
+    });
+  });
+  return allUstensils;
+}
+
 /* DOM Variables */
 const $recipes = document.getElementById("recipes");
 const $searchInput = document.getElementById("search-bar-input");
@@ -135,3 +169,5 @@ $searchInput.addEventListener("input", (e) => {
 
 let filteredRecipes = recipes;
 renderCards(filteredRecipes);
+
+console.log(getAllUstensils(recipes));
