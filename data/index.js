@@ -113,14 +113,14 @@ function getAllIngredients(recipes) {
   return allIngredients;
 }
 
-function getAllAppliances(recipes) {
-  let allAppliances = [];
+function getAllAppliance(recipes) {
+  let allAppliance = [];
   recipes.map((x) => {
-    if (!allAppliances.includes(x.appliance)) {
-      return allAppliances.push(x.appliance);
+    if (!allAppliance.includes(x.appliance)) {
+      return allAppliance.push(x.appliance);
     }
   });
-  return allAppliances;
+  return allAppliance;
 }
 
 function getAllUstensils(recipes) {
@@ -138,7 +138,20 @@ function getAllUstensils(recipes) {
 /* DOM Variables */
 const $recipes = document.getElementById("recipes");
 const $searchInput = document.getElementById("search-bar-input");
+const $ingredientsButton = document.getElementById("ingredients");
+const $applianceButton = document.getElementById("appliance");
+const $ustencilsButton = document.getElementById("ustencils");
+const $ingredientsList = document.getElementById("ingredients-list__bottom");
+const $applianceList = document.getElementById("appliance-list__bottom");
+const $ustencilsList = document.getElementById("ustencils-list__bottom");
+const $ingredientsOpen = document.getElementById("ingredients-list");
+const $applianceOpen = document.getElementById("appliance-list");
+const $ustencilsOpen = document.getElementById("ustencils-list");
+const $ingredientsLess = document.getElementById("ingredients-less");
+const $applianceLess = document.getElementById("appliance-less");
+const $ustencilsLess = document.getElementById("ustencils-less");
 
+/* Event Listeners */
 $searchInput.addEventListener("input", (e) => {
   e.preventDefault();
   if ($searchInput.value.length > 2) {
@@ -167,7 +180,71 @@ $searchInput.addEventListener("input", (e) => {
   }
 });
 
+$ingredientsButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  let ingredientsHTML = "";
+  const ingredientsList = getAllIngredients(recipes).slice(0, 27);
+  for (let i in ingredientsList) {
+    ingredientsHTML += `<li><a href="#">${ingredientsList[i]}</a></li>`;
+  }
+  $ingredientsList.innerHTML = ingredientsHTML;
+  $ingredientsOpen.classList.remove("hide");
+  $ingredientsButton.classList.add("hide");
+  $ustencilsOpen.classList.add("hide");
+  $ustencilsButton.classList.remove("hide");
+  $applianceOpen.classList.add("hide");
+  $applianceButton.classList.remove("hide");
+});
+
+$ingredientsLess.addEventListener("click", (e) => {
+  e.preventDefault();
+  $ingredientsButton.classList.remove("hide");
+  $ingredientsOpen.classList.add("hide");
+});
+
+$applianceButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  let applianceHTML = "";
+  const applianceList = getAllAppliance(recipes).slice(0, 27);
+  for (let i in applianceList) {
+    applianceHTML += `<li><a href="#">${applianceList[i]}</a></li>`;
+  }
+  $applianceList.innerHTML = applianceHTML;
+  $applianceOpen.classList.remove("hide");
+  $applianceButton.classList.add("hide");
+  $ustencilsOpen.classList.add("hide");
+  $ustencilsButton.classList.remove("hide");
+  $ingredientsOpen.classList.add("hide");
+  $ingredientsButton.classList.remove("hide");
+});
+
+$applianceLess.addEventListener("click", (e) => {
+  e.preventDefault();
+  $applianceButton.classList.remove("hide");
+  $applianceOpen.classList.add("hide");
+});
+
+$ustencilsButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  let ustencilsHTML = "";
+  const ustencilsList = getAllUstensils(recipes).slice(0, 27);
+  for (let i in ustencilsList) {
+    ustencilsHTML += `<li><a href="#">${ustencilsList[i]}</a></li>`;
+  }
+  $ustencilsList.innerHTML = ustencilsHTML;
+  $ustencilsOpen.classList.remove("hide");
+  $ustencilsButton.classList.add("hide");
+  $applianceOpen.classList.add("hide");
+  $applianceButton.classList.remove("hide");
+  $ingredientsOpen.classList.add("hide");
+  $ingredientsButton.classList.remove("hide");
+});
+
+$ustencilsLess.addEventListener("click", (e) => {
+  e.preventDefault();
+  $ustencilsButton.classList.remove("hide");
+  $ustencilsOpen.classList.add("hide");
+});
+
 let filteredRecipes = recipes;
 renderCards(filteredRecipes);
-
-console.log(getAllUstensils(recipes));

@@ -14,7 +14,7 @@ ul {
 }
 
 .hide {
-  display: none;
+  display: none !important;
 }
 
 header {
@@ -109,7 +109,7 @@ button {
   background-color: #ed6454;
 }
 
-.ingredient-list {
+.ingredients-list {
   background-color: #3282f7;
   width: 35rem;
   border: none;
@@ -120,25 +120,25 @@ button {
   z-index: 99;
 }
 
-.ingredient-list input {
+.ingredients-list input {
   width: 90%;
   height: 2rem;
   background-color: inherit;
   border: none;
 }
 
-.ingredient-list input::placeholder {
+.ingredients-list input::placeholder {
   color: white;
   opacity: 0.8;
 }
 
-.ingredient-list__top {
+.ingredients-list__top {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.ingredient-list ul {
+.ingredients-list ul {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -146,13 +146,18 @@ button {
   margin: 1.5rem 0 0 0;
 }
 
-.ingredient-list li {
+.ingredients-list li {
   margin: 0.2rem;
+  text-transform: capitalize;
 }
 
-.ingredient-list a {
+.ingredients-list a {
   text-decoration: none;
   color: white;
+}
+
+.ingredients-list .material-icons {
+  cursor: pointer;
 }
 
 .appliance-list {
@@ -194,11 +199,16 @@ button {
 
 .appliance-list li {
   margin: 0.2rem;
+  text-transform: capitalize;
 }
 
 .appliance-list a {
   text-decoration: none;
   color: white;
+}
+
+.appliance-list .material-icons {
+  cursor: pointer;
 }
 
 .ustencils-list {
@@ -240,11 +250,16 @@ button {
 
 .ustencils-list li {
   margin: 0.2rem;
+  text-transform: capitalize;
 }
 
 .ustencils-list a {
   text-decoration: none;
   color: white;
+}
+
+.ustencils-list .material-icons {
+  cursor: pointer;
 }
 
 .recipes {

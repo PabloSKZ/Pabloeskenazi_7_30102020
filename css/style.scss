@@ -14,7 +14,7 @@ ul {
 }
 
 .hide {
-  display: none;
+  display: none !important;
 }
 
 header {
@@ -146,15 +146,20 @@ button {
 
   li {
     margin: 0.2rem;
+    text-transform: capitalize;
   }
 
   a {
     text-decoration: none;
     color: white;
   }
+
+  .material-icons {
+    cursor: pointer;
+  }
 }
 
-.ingredient-list {
+.ingredients-list {
   background-color: #3282f7;
   @include list;
 }
