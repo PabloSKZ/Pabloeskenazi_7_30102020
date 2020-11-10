@@ -68,6 +68,11 @@ button {
   margin: 1rem 1rem 0 0;
 }
 
+.selected-tags {
+  display: flex;
+  align-items: baseline;
+}
+
 .tag {
   padding: 0.5rem 1rem;
   display: flex;
@@ -78,6 +83,7 @@ button {
   font-size: 1rem;
   transform: rotate(45deg);
   margin-left: 0.5rem;
+  pointer-events: none;
 }
 
 .tag__blue {
@@ -148,7 +154,7 @@ button {
 
 .ingredients-list li {
   margin: 0.2rem;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
 }
 
 .ingredients-list a {
@@ -199,7 +205,7 @@ button {
 
 .appliance-list li {
   margin: 0.2rem;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
 }
 
 .appliance-list a {
@@ -250,7 +256,7 @@ button {
 
 .ustencils-list li {
   margin: 0.2rem;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
 }
 
 .ustencils-list a {

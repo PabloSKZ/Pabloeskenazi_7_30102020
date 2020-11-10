@@ -135,6 +135,19 @@ function getAllUstensils(recipes) {
   return allUstensils;
 }
 
+function renderSelectedTags(selectedTags) {
+  let selectedTagsHTML = "";
+  for (let i in selectedTags) {
+    selectedTagsHTML += `
+    <button class="tag tag__blue">
+      ${selectedTags[i].tag} <span class="material-icons"> control_point </span>
+    </button>`;
+  }
+
+  $selectedTags.innerHTML = selectedTagsHTML;
+  console.log(selectedTags);
+}
+
 /* DOM Variables */
 const $recipes = document.getElementById("recipes");
 const $searchInput = document.getElementById("search-bar-input");
@@ -150,6 +163,9 @@ const $ustencilsOpen = document.getElementById("ustencils-list");
 const $ingredientsLess = document.getElementById("ingredients-less");
 const $applianceLess = document.getElementById("appliance-less");
 const $ustencilsLess = document.getElementById("ustencils-less");
+const $selectedTags = document.getElementById("selected-tags");
+
+let selectedTags = [];
 
 /* Event Listeners */
 $searchInput.addEventListener("input", (e) => {
@@ -180,6 +196,7 @@ $searchInput.addEventListener("input", (e) => {
   }
 });
 
+// Toggle Dropdowns
 $ingredientsButton.addEventListener("click", (e) => {
   e.preventDefault();
   let ingredientsHTML = "";
@@ -244,6 +261,60 @@ $ustencilsLess.addEventListener("click", (e) => {
   e.preventDefault();
   $ustencilsButton.classList.remove("hide");
   $ustencilsOpen.classList.add("hide");
+});
+
+$ingredientsList.addEventListener("click", (e) => {
+  if (e.target.innerHTML.substring(0, 1) != "<") {
+    if (!selectedTags.map((x) => x.tag).includes(e.target.innerHTML)) {
+      selectedTags.push({
+        tag: e.target.innerHTML,
+        category: "ingredients",
+      });
+    } else {
+      selectedTags.splice(
+        selectedTags.findIndex((x) => x.tag == e.target.innerHTML),
+        1
+      );
+    }
+    renderSelectedTags(selectedTags);
+  }
+});
+
+$selectedTags.addEventListener("click", (e) => {
+  if (
+    !selectedTags
+      .map((x) => x.tag)
+      .includes(
+        e.target.innerHTML
+          .split(" ")
+          .slice(
+            0,
+            e.target.innerHTML.split(" ").findIndex((x) => x == "<span")
+          )
+          .join(" ")
+          .trim()
+      )
+  ) {
+    if (e.target.innerHTML.trim().substring(0, 1) != "<") {
+      selectedTags.push({
+        tag: e.target.innerHTML
+          .split(" ")
+          .slice(
+            0,
+            e.target.innerHTML.split(" ").findIndex((x) => x == "<span")
+          )
+          .join(" ")
+          .trim(),
+        category: "ingredients",
+      });
+    }
+  } else {
+    selectedTags.splice(
+      selectedTags.findIndex((x) => x.tag == e.target.innerHTML),
+      1
+    );
+  }
+  renderSelectedTags(selectedTags);
 });
 
 let filteredRecipes = recipes;
