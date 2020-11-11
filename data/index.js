@@ -82,6 +82,38 @@ function filterRecipes(recipes, search) {
   return filteredRecipes;
 }
 
+function performSearch(searchInput, selectedTags = []) {
+  if ($searchInput.value.length > 2 || selectedTags != []) {
+    let eachFilteredRecipes = [];
+    filteredRecipes = [];
+    if (searchInput != "") {
+      searchInput = searchInput.split(" ");
+      for (let i in searchInput) {
+        const search = new RegExp(searchInput[i], "i");
+        eachFilteredRecipes.push(filterRecipes(recipes, search));
+      }
+    }
+    for (let j in selectedTags) {
+      const search = new RegExp(selectedTags[j].tag, "i");
+      eachFilteredRecipes.push(filterRecipes(recipes, search));
+    }
+    filteredRecipes = [].concat.apply([], eachFilteredRecipes);
+    console.log(filteredRecipes);
+    filteredRecipes = filteredRecipes
+      .filter(
+        // find common occurences
+        (i) =>
+          filteredRecipes.filter((j) => i === j).length >= searchInput.length
+      )
+      .filter((item, pos) => {
+        // delete duplicate
+        return filteredRecipes.indexOf(item) == pos;
+      });
+    console.log(filteredRecipes);
+    showCards(recipes, filteredRecipes);
+  }
+}
+
 function showCards(recipes, filteredRecipes) {
   // Hide all cards
   for (let i = 1; i <= recipes.length; i++) {
@@ -156,6 +188,7 @@ function renderSelectedTags(selectedTags) {
     }
   }
   $selectedTags.innerHTML = selectedTagsHTML;
+  performSearch($searchInput.value, selectedTags);
 }
 
 function filterDropdownsTags(tagsList, search = "") {
@@ -218,7 +251,8 @@ let selectedTags = [];
 $searchInput.addEventListener("input", (e) => {
   e.preventDefault();
   if ($searchInput.value.length > 2) {
-    let eachFilteredRecipes = [];
+    performSearch($searchInput.value, selectedTags);
+    /* let eachFilteredRecipes = [];
     filteredRecipes = [];
     const searchInput = $searchInput.value.split(" ");
     for (let i in searchInput) {
@@ -236,7 +270,7 @@ $searchInput.addEventListener("input", (e) => {
         // delete duplicate
         return filteredRecipes.indexOf(item) == pos;
       });
-    showCards(recipes, filteredRecipes);
+    showCards(recipes, filteredRecipes); */
   } else if ($searchInput.value.length == 0) {
     filteredRecipes = [0];
     showCards(recipes, filteredRecipes);
