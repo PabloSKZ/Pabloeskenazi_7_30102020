@@ -138,14 +138,24 @@ function getAllUstensils(recipes) {
 function renderSelectedTags(selectedTags) {
   let selectedTagsHTML = "";
   for (let i in selectedTags) {
-    selectedTagsHTML += `
-    <button class="tag tag__blue">
-      ${selectedTags[i].tag} <span class="material-icons"> control_point </span>
-    </button>`;
+    if (selectedTags[i].category == "ingredients") {
+      selectedTagsHTML += `
+      <button class="tag tag__blue">
+        ${selectedTags[i].tag} <span class="material-icons"> control_point </span>
+      </button>`;
+    } else if (selectedTags[i].category == "appliance") {
+      selectedTagsHTML += `
+      <button class="tag tag__green">
+        ${selectedTags[i].tag} <span class="material-icons"> control_point </span>
+      </button>`;
+    } else if (selectedTags[i].category == "ustencils") {
+      selectedTagsHTML += `
+      <button class="tag tag__orange">
+        ${selectedTags[i].tag} <span class="material-icons"> control_point </span>
+      </button>`;
+    }
   }
-
   $selectedTags.innerHTML = selectedTagsHTML;
-  console.log(selectedTags);
 }
 
 /* DOM Variables */
@@ -280,9 +290,43 @@ $ingredientsList.addEventListener("click", (e) => {
   }
 });
 
+$applianceList.addEventListener("click", (e) => {
+  if (e.target.innerHTML.substring(0, 1) != "<") {
+    if (!selectedTags.map((x) => x.tag).includes(e.target.innerHTML)) {
+      selectedTags.push({
+        tag: e.target.innerHTML,
+        category: "appliance",
+      });
+    } else {
+      selectedTags.splice(
+        selectedTags.findIndex((x) => x.tag == e.target.innerHTML),
+        1
+      );
+    }
+    renderSelectedTags(selectedTags);
+  }
+});
+
+$ustencilsList.addEventListener("click", (e) => {
+  if (e.target.innerHTML.substring(0, 1) != "<") {
+    if (!selectedTags.map((x) => x.tag).includes(e.target.innerHTML)) {
+      selectedTags.push({
+        tag: e.target.innerHTML,
+        category: "ustencils",
+      });
+    } else {
+      selectedTags.splice(
+        selectedTags.findIndex((x) => x.tag == e.target.innerHTML),
+        1
+      );
+    }
+    renderSelectedTags(selectedTags);
+  }
+});
+
 $selectedTags.addEventListener("click", (e) => {
   if (
-    !selectedTags
+    selectedTags
       .map((x) => x.tag)
       .includes(
         e.target.innerHTML
@@ -295,22 +339,19 @@ $selectedTags.addEventListener("click", (e) => {
           .trim()
       )
   ) {
-    if (e.target.innerHTML.trim().substring(0, 1) != "<") {
-      selectedTags.push({
-        tag: e.target.innerHTML
-          .split(" ")
-          .slice(
-            0,
-            e.target.innerHTML.split(" ").findIndex((x) => x == "<span")
-          )
-          .join(" ")
-          .trim(),
-        category: "ingredients",
-      });
-    }
-  } else {
     selectedTags.splice(
-      selectedTags.findIndex((x) => x.tag == e.target.innerHTML),
+      selectedTags.findIndex(
+        (x) =>
+          x.tag ==
+          e.target.innerHTML
+            .split(" ")
+            .slice(
+              0,
+              e.target.innerHTML.split(" ").findIndex((x) => x == "<span")
+            )
+            .join(" ")
+            .trim()
+      ),
       1
     );
   }

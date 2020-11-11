@@ -90,6 +90,14 @@ button {
   background-color: #3282f7;
 }
 
+.tag__green {
+  background-color: #68d9a4;
+}
+
+.tag__orange {
+  background-color: #ed6454;
+}
+
 .dropdowns {
   display: flex;
 }
