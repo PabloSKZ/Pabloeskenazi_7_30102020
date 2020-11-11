@@ -103,6 +103,7 @@ function performSearch(searchInput, selectedTags = []) {
       .filter(
         // find common occurences
         (i) =>
+          // !!! searchInput.length
           filteredRecipes.filter((j) => i === j).length >= searchInput.length
       )
       .filter((item, pos) => {
