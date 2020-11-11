@@ -123,7 +123,7 @@ function getAllAppliance(recipes) {
   return allAppliance;
 }
 
-function getAllUstensils(recipes) {
+function getAllUstencils(recipes) {
   let allUstensils = [];
   recipes.map((x) => {
     x.ustensils.map((y) => {
@@ -158,12 +158,49 @@ function renderSelectedTags(selectedTags) {
   $selectedTags.innerHTML = selectedTagsHTML;
 }
 
+function filterDropdownsTags(tagsList, search = "") {
+  let tagsListFiltred = [];
+  for (let i in tagsList) {
+    if (tagsList[i].match(search) || search == "") {
+      tagsListFiltred.push(tagsList[i]);
+    }
+  }
+  return tagsListFiltred.slice(0, 27);
+}
+
+function showIngredientsTags(ingredientsList) {
+  let ingredientsHTML = "";
+  for (let i in ingredientsList) {
+    ingredientsHTML += `<li><a href="#">${ingredientsList[i]}</a></li>`;
+  }
+  $ingredientsList.innerHTML = ingredientsHTML;
+}
+
+function showApplianceTags(applianceList) {
+  let applianceHTML = "";
+  for (let i in applianceList) {
+    applianceHTML += `<li><a href="#">${applianceList[i]}</a></li>`;
+  }
+  $applianceList.innerHTML = applianceHTML;
+}
+
+function showUstencilsTags(ustencilsList) {
+  let ustencilsHTML = "";
+  for (let i in ustencilsList) {
+    ustencilsHTML += `<li><a href="#">${ustencilsList[i]}</a></li>`;
+  }
+  $ustencilsList.innerHTML = ustencilsHTML;
+}
+
 /* DOM Variables */
 const $recipes = document.getElementById("recipes");
 const $searchInput = document.getElementById("search-bar-input");
 const $ingredientsButton = document.getElementById("ingredients");
 const $applianceButton = document.getElementById("appliance");
 const $ustencilsButton = document.getElementById("ustencils");
+const $ingredientsInput = document.getElementById("ingredients-search");
+const $applianceInput = document.getElementById("appliance-search");
+const $ustencilsInput = document.getElementById("ustencils-search");
 const $ingredientsList = document.getElementById("ingredients-list__bottom");
 const $applianceList = document.getElementById("appliance-list__bottom");
 const $ustencilsList = document.getElementById("ustencils-list__bottom");
@@ -209,12 +246,8 @@ $searchInput.addEventListener("input", (e) => {
 // Toggle Dropdowns
 $ingredientsButton.addEventListener("click", (e) => {
   e.preventDefault();
-  let ingredientsHTML = "";
   const ingredientsList = getAllIngredients(recipes).slice(0, 27);
-  for (let i in ingredientsList) {
-    ingredientsHTML += `<li><a href="#">${ingredientsList[i]}</a></li>`;
-  }
-  $ingredientsList.innerHTML = ingredientsHTML;
+  showIngredientsTags(ingredientsList);
   $ingredientsOpen.classList.remove("hide");
   $ingredientsButton.classList.add("hide");
   $ustencilsOpen.classList.add("hide");
@@ -227,6 +260,19 @@ $ingredientsLess.addEventListener("click", (e) => {
   e.preventDefault();
   $ingredientsButton.classList.remove("hide");
   $ingredientsOpen.classList.add("hide");
+});
+
+$ingredientsInput.addEventListener("input", (e) => {
+  e.preventDefault();
+  const ingredientsList = getAllIngredients(recipes);
+  if ($ingredientsInput.value.length > 2) {
+    const search = new RegExp($ingredientsInput.value, "i");
+    let filtredDropdownsTags = filterDropdownsTags(ingredientsList, search);
+    showIngredientsTags(filtredDropdownsTags);
+  } else if ($ingredientsInput.value.length == 0) {
+    let filtredDropdownsTags = filterDropdownsTags(ingredientsList, "");
+    showIngredientsTags(filtredDropdownsTags);
+  }
 });
 
 $applianceButton.addEventListener("click", (e) => {
@@ -251,10 +297,23 @@ $applianceLess.addEventListener("click", (e) => {
   $applianceOpen.classList.add("hide");
 });
 
+$applianceInput.addEventListener("input", (e) => {
+  e.preventDefault();
+  const applianceList = getAllAppliance(recipes);
+  if ($applianceInput.value.length > 2) {
+    const search = new RegExp($applianceInput.value, "i");
+    let filtredDropdownsTags = filterDropdownsTags(applianceList, search);
+    showApplianceTags(filtredDropdownsTags);
+  } else if ($applianceInput.value.length == 0) {
+    let filtredDropdownsTags = filterDropdownsTags(applianceList, "");
+    showApplianceTags(filtredDropdownsTags);
+  }
+});
+
 $ustencilsButton.addEventListener("click", (e) => {
   e.preventDefault();
   let ustencilsHTML = "";
-  const ustencilsList = getAllUstensils(recipes).slice(0, 27);
+  const ustencilsList = getAllUstencils(recipes).slice(0, 27);
   for (let i in ustencilsList) {
     ustencilsHTML += `<li><a href="#">${ustencilsList[i]}</a></li>`;
   }
@@ -271,6 +330,19 @@ $ustencilsLess.addEventListener("click", (e) => {
   e.preventDefault();
   $ustencilsButton.classList.remove("hide");
   $ustencilsOpen.classList.add("hide");
+});
+
+$ustencilsInput.addEventListener("input", (e) => {
+  e.preventDefault();
+  const ustencilsList = getAllUstencils(recipes);
+  if ($ustencilsInput.value.length > 2) {
+    const search = new RegExp($ustencilsInput.value, "i");
+    let filtredDropdownsTags = filterDropdownsTags(ustencilsList, search);
+    showUstencilsTags(filtredDropdownsTags);
+  } else if ($ustencilsInput.value.length == 0) {
+    let filtredDropdownsTags = filterDropdownsTags(ustencilsList, "");
+    showUstencilsTags(filtredDropdownsTags);
+  }
 });
 
 $ingredientsList.addEventListener("click", (e) => {
