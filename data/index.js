@@ -83,43 +83,60 @@ function filterRecipes(recipes, search) {
 }
 
 function performSearch(searchInput, selectedTags = []) {
-  if ($searchInput.value.length > 2 || selectedTags != []) {
-    let eachFilteredRecipes = [];
-    let search = "";
-    filteredRecipes = [];
-    if (searchInput != "") {
-      searchInput = searchInput.split(" ");
-      for (let i in searchInput) {
-        search = new RegExp(searchInput[i], "i");
-        eachFilteredRecipes.push(filterRecipes(recipes, search));
-      }
-    } else {
-      searchInput = [];
-    }
-    if (selectedTags.length != 0) {
-      for (let j in selectedTags) {
-        search = new RegExp(selectedTags[j].tag, "i");
-        eachFilteredRecipes.push(filterRecipes(recipes, search));
-        searchInput.push(selectedTags[j]);
-      }
-    } else {
+  let eachFilteredRecipes = [];
+  let search = "";
+  let searchKeyNumber = 0;
+  filteredRecipes = [];
+  if (searchInput != "") {
+    searchInput = searchInput.split(" ");
+    for (let i in searchInput) {
+      search = new RegExp(searchInput[i], "i");
+      eachFilteredRecipes.push(recipes);
       eachFilteredRecipes.push(filterRecipes(recipes, search));
     }
-    filteredRecipes = [].concat.apply([], eachFilteredRecipes);
-    searchInput = searchInput.flat();
-    console.log(filteredRecipes);
-    filteredRecipes = filteredRecipes.filter(
-      // find common occurences
-      (i) =>
-        filteredRecipes.filter((j) => i.id === j.id).length >=
-        searchInput.length
-    );
-    /* .filter((item, pos) => {
+  } else {
+    eachFilteredRecipes.push(filterRecipes(recipes, search));
+    searchInput = [];
+  }
+  eachFilteredRecipes = eachFilteredRecipes.flat();
+  if (selectedTags.length != 0) {
+    for (let j in selectedTags) {
+      if (selectedTags[j].category == "ingredients") {
+        /* eachFilteredRecipes.push(
+          eachFilteredRecipes.map((x) =>
+            x.ingredients.filter((y) => y.ingredient == selectedTags[j].tag)
+          )
+        ); */
+      } else if (selectedTags[j].category == "appliance") {
+        eachFilteredRecipes.push(
+          eachFilteredRecipes.filter((x) => x.appliance == selectedTags[j].tag)
+        );
+      } else if (selectedTags[j].category == "ustencils") {
+        console.log(eachFilteredRecipes);
+        eachFilteredRecipes.push(
+          eachFilteredRecipes.filter((x) =>
+            x.ustensils.includes(selectedTags[j].tag)
+          )
+        );
+        eachFilteredRecipes = eachFilteredRecipes.flat();
+      }
+    }
+  }
+
+  filteredRecipes = [].concat.apply([], eachFilteredRecipes);
+  searchKeyNumber += searchInput.flat().length;
+  searchKeyNumber += selectedTags.length;
+  console.log(filteredRecipes);
+  filteredRecipes = filteredRecipes.filter(
+    // find common occurences
+    (i) => filteredRecipes.filter((j) => i.id === j.id).length > searchKeyNumber
+  );
+  /* .filter((item, pos) => {
         // delete duplicate
         return filteredRecipes.indexOf(item) == pos;
       }); */
-    showCards(recipes, filteredRecipes);
-  }
+  console.log(filteredRecipes);
+  showCards(recipes, filteredRecipes);
 }
 
 function showCards(recipes, filteredRecipes) {
@@ -279,10 +296,11 @@ $searchInput.addEventListener("input", (e) => {
         return filteredRecipes.indexOf(item) == pos;
       });
     showCards(recipes, filteredRecipes); */
-  } /* else if ($searchInput.value.length == 0) {
-    filteredRecipes = [0];
-    showCards(recipes, filteredRecipes);
-  } */
+  } else if ($searchInput.value.length == 0) {
+    performSearch($searchInput.value, selectedTags);
+    /* filteredRecipes = [0];
+    showCards(recipes, filteredRecipes); */
+  }
 });
 
 // Toggle Dropdowns
