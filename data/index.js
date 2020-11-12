@@ -85,32 +85,39 @@ function filterRecipes(recipes, search) {
 function performSearch(searchInput, selectedTags = []) {
   if ($searchInput.value.length > 2 || selectedTags != []) {
     let eachFilteredRecipes = [];
+    let search = "";
     filteredRecipes = [];
     if (searchInput != "") {
       searchInput = searchInput.split(" ");
       for (let i in searchInput) {
-        const search = new RegExp(searchInput[i], "i");
+        search = new RegExp(searchInput[i], "i");
         eachFilteredRecipes.push(filterRecipes(recipes, search));
       }
+    } else {
+      searchInput = [];
     }
-    for (let j in selectedTags) {
-      const search = new RegExp(selectedTags[j].tag, "i");
+    if (selectedTags.length != 0) {
+      for (let j in selectedTags) {
+        search = new RegExp(selectedTags[j].tag, "i");
+        eachFilteredRecipes.push(filterRecipes(recipes, search));
+        searchInput.push(selectedTags[j]);
+      }
+    } else {
       eachFilteredRecipes.push(filterRecipes(recipes, search));
     }
     filteredRecipes = [].concat.apply([], eachFilteredRecipes);
+    searchInput = searchInput.flat();
     console.log(filteredRecipes);
-    filteredRecipes = filteredRecipes
-      .filter(
-        // find common occurences
-        (i) =>
-          // !!! searchInput.length
-          filteredRecipes.filter((j) => i === j).length >= searchInput.length
-      )
-      .filter((item, pos) => {
+    filteredRecipes = filteredRecipes.filter(
+      // find common occurences
+      (i) =>
+        filteredRecipes.filter((j) => i.id === j.id).length >=
+        searchInput.length
+    );
+    /* .filter((item, pos) => {
         // delete duplicate
         return filteredRecipes.indexOf(item) == pos;
-      });
-    console.log(filteredRecipes);
+      }); */
     showCards(recipes, filteredRecipes);
   }
 }
@@ -130,7 +137,7 @@ function showCards(recipes, filteredRecipes) {
       document.getElementById(i).classList.remove("hide");
     }
   } else {
-    console.log("vide");
+    /* console.log("vide"); */
   }
 }
 
@@ -272,10 +279,10 @@ $searchInput.addEventListener("input", (e) => {
         return filteredRecipes.indexOf(item) == pos;
       });
     showCards(recipes, filteredRecipes); */
-  } else if ($searchInput.value.length == 0) {
+  } /* else if ($searchInput.value.length == 0) {
     filteredRecipes = [0];
     showCards(recipes, filteredRecipes);
-  }
+  } */
 });
 
 // Toggle Dropdowns
