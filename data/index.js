@@ -138,6 +138,7 @@ function performSearch(searchInput, selectedTags = []) {
 
 function showCards(recipes, filteredRecipes) {
   // Hide all cards
+  $empty.classList.add("hide");
   for (let i = 1; i <= recipes.length; i++) {
     document.getElementById(i).classList.add("hide");
   }
@@ -151,7 +152,7 @@ function showCards(recipes, filteredRecipes) {
       document.getElementById(i).classList.remove("hide");
     }
   } else {
-    /* console.log("vide"); */
+    $empty.classList.remove("hide");
   }
 }
 
@@ -266,6 +267,7 @@ const $ingredientsLess = document.getElementById("ingredients-less");
 const $applianceLess = document.getElementById("appliance-less");
 const $ustencilsLess = document.getElementById("ustencils-less");
 const $selectedTags = document.getElementById("selected-tags");
+const $empty = document.getElementById("empty");
 
 let selectedTags = [];
 

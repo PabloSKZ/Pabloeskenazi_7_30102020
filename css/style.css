@@ -276,6 +276,14 @@ button {
   cursor: pointer;
 }
 
+.empty {
+  height: 12rem;
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  margin: 1rem auto;
+}
+
 .recipes {
   display: flex;
   justify-content: center;
