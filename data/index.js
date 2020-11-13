@@ -86,57 +86,54 @@ function performSearch(searchInput, selectedTags = []) {
   let eachFilteredRecipes = [];
   let search = "";
   let searchKeyNumber = 0;
-  filteredRecipes = [];
   if (searchInput != "") {
     searchInput = searchInput.split(" ");
     for (let i in searchInput) {
       search = new RegExp(searchInput[i], "i");
-      eachFilteredRecipes.push(recipes);
       eachFilteredRecipes.push(filterRecipes(recipes, search));
     }
   } else {
-    eachFilteredRecipes.push(filterRecipes(recipes, search));
     searchInput = [];
   }
-  eachFilteredRecipes = eachFilteredRecipes.flat();
   if (selectedTags.length != 0) {
     for (let j in selectedTags) {
       if (selectedTags[j].category == "ingredients") {
-        /* eachFilteredRecipes.push(
-          eachFilteredRecipes.map((x) =>
-            x.ingredients.filter((y) => y.ingredient == selectedTags[j].tag)
-          )
-        ); */
+        for (k in recipes) {
+          if (
+            recipes[k].ingredients
+              .map((x) => x.ingredient)
+              .includes(selectedTags[j].tag)
+          ) {
+            eachFilteredRecipes.push(recipes[k]);
+          }
+        }
       } else if (selectedTags[j].category == "appliance") {
         eachFilteredRecipes.push(
-          eachFilteredRecipes.filter((x) => x.appliance == selectedTags[j].tag)
+          recipes.filter((x) => x.appliance == selectedTags[j].tag)
         );
       } else if (selectedTags[j].category == "ustencils") {
-        console.log(eachFilteredRecipes);
         eachFilteredRecipes.push(
-          eachFilteredRecipes.filter((x) =>
-            x.ustensils.includes(selectedTags[j].tag)
-          )
+          recipes.filter((x) => x.ustensils.includes(selectedTags[j].tag))
         );
-        eachFilteredRecipes = eachFilteredRecipes.flat();
       }
     }
   }
-
-  filteredRecipes = [].concat.apply([], eachFilteredRecipes);
+  if (searchInput == "" && selectedTags.length == 0) {
+    eachFilteredRecipes.push(recipes);
+  }
   searchKeyNumber += searchInput.flat().length;
   searchKeyNumber += selectedTags.length;
-  console.log(filteredRecipes);
-  filteredRecipes = filteredRecipes.filter(
+  eachFilteredRecipes = eachFilteredRecipes.flat();
+  eachFilteredRecipes = eachFilteredRecipes.filter(
     // find common occurences
-    (i) => filteredRecipes.filter((j) => i.id === j.id).length > searchKeyNumber
+    (i) =>
+      eachFilteredRecipes.filter((j) => i.id === j.id).length >= searchKeyNumber
   );
   /* .filter((item, pos) => {
         // delete duplicate
         return filteredRecipes.indexOf(item) == pos;
       }); */
-  console.log(filteredRecipes);
-  showCards(recipes, filteredRecipes);
+  showCards(recipes, eachFilteredRecipes);
 }
 
 function showCards(recipes, filteredRecipes) {
